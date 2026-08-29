@@ -24,8 +24,8 @@ jobs:
       # 3. Build and deploy the Docker Compose stack on the VM
       - name: Deploy Containers
         run: |
-          docker-compose down
-          docker-compose up -d --build
+          echo "8520" | sudo -S docker-compose down
+          echo "8520" | sudo -S docker-compose up -d --build
 
       # 4. (Optional) Check container status
       - name: Verify Deployment
