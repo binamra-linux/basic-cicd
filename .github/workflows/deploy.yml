@@ -1,0 +1,32 @@
+name: CI/CD Pipeline (Self-Hosted)
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  deploy-to-vm:
+    # This targets your Ubuntu VM runner directly
+    runs-on: self-hosted
+
+    steps:
+      # 1. Pull the latest code to the VM's runner workspace
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Run the SAST scanner (Semgrep) using a temporary Docker container
+      # - name: Run SAST Scan
+      #   run: |
+      #     docker run --rm -v "${{ github.workspace }}:/src" returntocorp/semgrep semgrep scan --config auto
+
+      # 3. Build and deploy the Docker Compose stack on the VM
+      - name: Deploy Containers
+        run: |
+          docker-compose down
+          docker-compose up -d --build
+
+      # 4. (Optional) Check container status
+      - name: Verify Deployment
+        run: docker ps
