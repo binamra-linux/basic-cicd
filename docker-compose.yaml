@@ -11,13 +11,13 @@ services:
       - node-app
 
   java-app:
-    build: ./java-app
+    build: ./java    # Updated path
     container_name: java_app
     expose:
       - "8080"
 
   node-app:
-    build: ./node-app
+    build: ./node    # Updated path
     container_name: node_app
     expose:
       - "3000"
